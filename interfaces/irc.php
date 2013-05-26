@@ -39,7 +39,8 @@ function interface_loop_extraction() { // function to extract data from the curr
     } else {
         $in_convo = FALSE;
     }
-    $hostname = end(explode('@',$buffwords[0]));
+    $hostname = explode('@',$buffwords[0]);
+    $hostname = end($hostname);
     $hostmask = $hostname;
     $bw = $buffwords;
     $bw[0]=NULL; $bw[1]=NULL; $bw[2]=NULL; $bw[3]=NULL;
