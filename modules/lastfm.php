@@ -141,7 +141,7 @@ function getNowPlaying() {
 	}
 	$json_data 	= getLastfmData('user.getrecenttracks','user=' . urlencode($user) . '&limit=1');
 	$first_track 	= $json_data['recenttracks']['track'][0];
-	if ($first_track['@attr']['nowplaying']) {/
+	if ($first_track['@attr']['nowplaying']) {
 		$trackinfo	= getLastfmData('track.getinfo','artist=' . urlencode($first_track['artist']['#text']) . '&track=' . urlencode($first_track['name']) . '&username=' . urlencode($user));
 		$top_tags 	= getTopTags($first_track['artist']['#text']);
 		$message 	=  ' "' . $user . '" is now playing '.$first_track['artist']['#text'];
