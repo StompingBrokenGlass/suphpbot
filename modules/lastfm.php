@@ -94,7 +94,7 @@ function getLastfmData($method, $parameters) {
 
 	if (in_array("internets", $loaded_modules)) {
 		$message = @internets_get_contents('http://ws.audioscrobbler.com/2.0/?format=json&api_key='. LASTFM_API_KEY .'&method=' . $method . '&' . $parameters);
-		$message = json_decode($def, TRUE);
+		$message = json_decode($message, TRUE);
 	} else {
 		send_msg($channel, "This will not work without the internets module.");
 	}
@@ -104,22 +104,23 @@ function getLastfmData($method, $parameters) {
 
 function getTopTags($artist) {
 	$tags = getLastfmData('artist.gettoptags','artist=' . urlencode($artist));
-	$tag_amount = 0;
-	$top_tags= array();
-	if ($tags['toptags']) {
-		if (isset($tags['toptags']['tag']['name'])) {
-			$top_tags = $tags['toptags']['tag']['name'];
-		} else {
-			foreach ($tags['toptags']['tag'] as $tag) {
-				if ($tag_amount++ == 5) {
-					break;
-				}
-				array_push($top_tags, $tag['name']);
+	
+	$top_tags = "";
+	
+	if(count($tags["toptags"]["tag"]) > 2) {
+		for($i = 0; $i < 3; $i++) {
+			if($i < 2) {
+				$top_tags .= $tags["toptags"]["tag"][$i]["name"] . ", ";
 			}
-			$top_tags = join(', ', $tags);
+			else {
+				$top_tags .= $tags["toptags"]["tag"][$i]["name"];
+			}
 		}
-	} else {
-		$top_tags = false;
+	}
+	else {
+		foreach($tags["toptags"]["tag"] as $tag) {
+			$top_tags .= $tag["name"];
+		}
 	}
 
 	return $top_tags;
