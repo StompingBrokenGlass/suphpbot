@@ -182,9 +182,6 @@ function core_raw() {
 function core_config() {
 	global $admin,$channel,$buffwords,$arguments,$settings,$config;
 	if ($buffwords[4]=='view') {
-		if (!$admin) {
-			noperms();
-		} else {
 		if (isset($settings[$buffwords[5]])) {
 			$private = explode(',',$settings['configprivate']);
 			if (in_array(strtolower($buffwords[5],$private))) {
@@ -194,7 +191,6 @@ function core_config() {
 			}
 		} else {
 			send_msg($channel,'That configuration key does not exist.');
-		}
 		}
 	} else {
 		if (!$admin) {

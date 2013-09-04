@@ -4,7 +4,7 @@
 
 $scriptname = str_replace(".php","",basename(__FILE__));
 $function_map[$scriptname] = array(
-    'premium' => 'get_premium_info',
+    'premium' => 'get_premium_info'
     'profile' => 'get_profile'
 );
 
@@ -29,7 +29,7 @@ function get_premium_info()
     if ($json_output) {
         if ($json_output['GamertagExists']) {
             $premium = $json_output['Subscription'];
-            send_msg($channel, "This user is a " . tolower(bold($premium)) . " user.");
+            send_msg($channel, "This user is a " tolower(bold($premium)) . " user.");
         } else {
             send_msg($channel, "No such user exists.");
         }
